@@ -7,63 +7,76 @@
 </head>
 <body>
     <script>
-        inventory = {
-    products: [],
+         <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Inventory Management</title>
+</head>
+<body>
+    <script>
+        // Define the inventory object
+        const inventory = {
+            products: [],
 
-    // Method to add a new product to the inventory
-    addProduct(name, price, quantity):
-        newProduct = {
-            name: name,
-            price: price,
-            quantity: quantity
-        }
-        // Add the new product to the inventory
-        products.push(newProduct)
-        // Display confirmation message
-        document.write("Product '" + name + "' added to inventory.<br>")
+            // Method to add a new product to the inventory
+            addProduct: function(name, price, quantity) {
+                const newProduct = {
+                    name: name,
+                    price: price,
+                    quantity: quantity
+                };
+                this.products.push(newProduct);
+                document.write(`Product '${name}' added to inventory.<br>`);
+            },
 
-    // Method to display all products in the inventory
-    displayProducts():
-        document.write("<h2>Inventory:</h2>")
-        if products.length === 0:
-            document.write("Inventory is empty.")
-        else:
-            // Iterate over each product in the inventory
-            products.forEach(product => {
-                document.write("Name: " + product.name + ", Price: $" + product.price + ", Quantity: " + product.quantity + "<br>")
-            })
+            // Method to display all products in the inventory
+            displayProducts: function() {
+                document.write("<h2>Inventory:</h2>");
+                if (this.products.length === 0) {
+                    document.write("Inventory is empty.");
+                } else {
+                    this.products.forEach(product => {
+                        document.write(`Name: ${product.name}, Price: $${product.price}, Quantity: ${product.quantity}<br>`);
+                    });
+                }
+            },
 
-    // Method to interactively add products until stopped
-    addProductsUntilStopped():
-        continueAdding = true
-        while continueAdding:
-            name = prompt("Enter product name:")
-            priceStr = prompt("Enter product price:")
-            quantityStr = prompt("Enter product quantity:")
+            // Method to interactively add products until stopped
+            addProductsUntilStopped: function() {
+                let continueAdding = true;
 
-            // Validate input
-            if !name or isNaN(priceStr) or isNaN(quantityStr) or parseFloat(priceStr) <= 0 or parseInt(quantityStr) <= 0:
-                alert("Invalid input. Please provide valid product details.")
-                continue  // Skip to next iteration of the loop
+                while (continueAdding) {
+                    const name = prompt("Enter product name:");
+                    const priceStr = prompt("Enter product price:");
+                    const quantityStr = prompt("Enter product quantity:");
 
-            // Add the product to the inventory
-            addProduct(name, parseFloat(priceStr), parseInt(quantityStr))
+                    // Validate input
+                    if (!name || isNaN(priceStr) || isNaN(quantityStr) || parseFloat(priceStr) <= 0 || parseInt(quantityStr) <= 0) {
+                        alert("Invalid input. Please provide valid product details.");
+                        continue;
+                    }
 
-            response = prompt("Do you want to add another product? (yes/no)")
-            if response.toLowerCase() !== "yes":
-                continueAdding = false  // Stop adding products
+                    // Add the product to the inventory
+                    this.addProduct(name, parseFloat(priceStr), parseInt(quantityStr));
 
-        // Display all products in the inventory
-        displayProducts()
+                    const response = prompt("Do you want to add another product? (yes/no)");
+                    if (response.toLowerCase() !== 'yes') {
+                        continueAdding = false;
+                    }
+                }
 
-// Start adding products until stopped
-inventory.addProductsUntilStopped()
+                // Display all products in the inventory
+                this.displayProducts();
+            }
+        };
 
-
-      
-  
-
-        
+        // Start adding products interactively using the inventory object
+        inventory.addProductsUntilStopped();
+    </script>
+</body>
+</html>
       
     </script>
 </body>
